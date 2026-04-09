@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 public class HelloImplem extends UnicastRemoteObject implements Hello {
 
-    public HelloImplem(int port) throws RemoteException {
+    public HelloImplem(int port) throws RemoteException { //essa port pode ser aquela q configuramos no firewall da máquina virtual
         super(port);
     }
 
