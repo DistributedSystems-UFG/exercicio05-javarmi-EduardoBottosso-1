@@ -6,4 +6,6 @@ import java.rmi.RemoteException;
 public interface Hello extends Remote {
     String sayHello() throws RemoteException;
     int soma(int a, int b) throws RemoteException;
+    int multiplicacao(int a, int b) throws RemoteException;
+    int quadrado (int a, int b) throws RemoteException;
 }
