@@ -27,7 +27,7 @@ public class Client {
             int result = stub.soma(100,1000);
             System.out.println("Response from soma: " + result);
 
-            int multi = stub.multiplicacao(100,1000);
+            int multi = stub.multiplicacao(100);
             System.out.println("Response from multiplicacao: " + multi);
 
             int quad = stub.quadrado(100,1000);
