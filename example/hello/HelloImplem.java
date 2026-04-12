@@ -16,4 +16,8 @@ public class HelloImplem extends UnicastRemoteObject implements Hello {
     public int soma (int a, int b) throws RemoteException {
         return a + b;
     }
+
+    public int multiplicacao (int a, int b) throws RemoteException{
+        return a*b;
+    }
 }
