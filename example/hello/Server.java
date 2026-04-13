@@ -1,29 +1,44 @@
 package example.hello;
 
 import java.rmi.Naming;
-import java.rmi.registry.Registry;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-public class Server {
+public class Client {
 
-    public Server() {}
+    private Client() {}
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
+
+        System.out.println("Initiating client");
+
+        String host = (args.length < 1) ? "localhost" : args[0];
+
         try {
-            LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-            Registry registry = LocateRegistry.getRegistry("localhost");
-            
-            HelloImplem obj = new HelloImplem(5678);
-            //Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 5678);
+            Hello stub = (Hello) Naming.lookup("rmi://" + host + "/MyHello");
+            System.out.println("Found Hello server");
 
-            // Bind the remote object's stub in the registry
-            Naming.rebind("MyHello", obj);
+            String response = stub.sayHello();
+            System.out.println("Response: " + response);
 
-            System.err.println("Server ready");
+            int result = stub.soma(100, 1000);
+            System.out.println("Response from soma: " + result);
+
+            int multi = stub.multiplicacao(100, 1000);
+            System.out.println("Response from multiplicacao: " + multi);
+
+            int quad = stub.quadrado(100);
+            System.out.println("Response from quadrado: " + quad);
+
+            Calculator calc = (Calculator) Naming.lookup("rmi://" + host + "/MyCalculator");
+            System.out.println("Found Calculator server");
+
+            int calcMulti = calc.multiplicacao(10, 5);
+            System.out.println("Calc multiplicacao: " + calcMulti);
+
+            int calcDiv = calc.divisao(20, 4);
+            System.out.println("Calc divisao: " + calcDiv);
+
         } catch (Exception e) {
-            System.err.println("Server exception: " + e.toString());
+            System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
         }
     }
