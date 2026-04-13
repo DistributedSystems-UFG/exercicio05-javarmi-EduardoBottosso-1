@@ -1,4 +1,4 @@
-package Calculator.java
+package example.hello;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
