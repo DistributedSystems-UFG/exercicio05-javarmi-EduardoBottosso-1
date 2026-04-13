@@ -30,7 +30,7 @@ public class Client {
             int multi = stub.multiplicacao(100);
             System.out.println("Response from multiplicacao: " + multi);
 
-            int quad = stub.quadrado(100,1000);
+            int quad = stub.quadrado(100);
             System.out.println("Responde from quadrado: " + quad);
             
         } catch (Exception e) {
