@@ -1,44 +1,24 @@
 package example.hello;
 
 import java.rmi.Naming;
+import java.rmi.registry.Registry;
+import java.rmi.registry.LocateRegistry;
 
-public class Client {
+public class Server {
 
-    private Client() {}
+    public Server() {}
 
-    public static void main(String[] args) {
-
-        System.out.println("Initiating client");
-
-        String host = (args.length < 1) ? "localhost" : args[0];
-
+    public static void main(String args[]) {
         try {
-            Hello stub = (Hello) Naming.lookup("rmi://" + host + "/MyHello");
-            System.out.println("Found Hello server");
+            LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 
-            String response = stub.sayHello();
-            System.out.println("Response: " + response);
+            HelloImplem obj = new HelloImplem(5678);
 
-            int result = stub.soma(100, 1000);
-            System.out.println("Response from soma: " + result);
+            Naming.rebind("MyHello", obj);
 
-            int multi = stub.multiplicacao(100, 1000);
-            System.out.println("Response from multiplicacao: " + multi);
-
-            int quad = stub.quadrado(100);
-            System.out.println("Response from quadrado: " + quad);
-
-            Calculator calc = (Calculator) Naming.lookup("rmi://" + host + "/MyCalculator");
-            System.out.println("Found Calculator server");
-
-            int calcMulti = calc.multiplicacao(10, 5);
-            System.out.println("Calc multiplicacao: " + calcMulti);
-
-            int calcDiv = calc.divisao(20, 4);
-            System.out.println("Calc divisao: " + calcDiv);
-
+            System.err.println("Server ready");
         } catch (Exception e) {
-            System.err.println("Client exception: " + e.toString());
+            System.err.println("Server exception: " + e.toString());
             e.printStackTrace();
         }
     }
